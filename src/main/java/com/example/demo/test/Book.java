@@ -13,8 +13,6 @@ public class Book {
         this.page = page;
     }
 
-    public static void main(String[] args) {
-        System.out.println();
-    }
+
 
 }
