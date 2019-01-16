@@ -27,12 +27,11 @@ public class DemoConfig {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(DemoConfig.class);
         DemoBean db = ac.getBean(DemoBean.class);
         System.out.println(db);
-//        ac.getEnvironment().setActiveProfiles("dev");
-//        ac.register(DemoConfig.class);
-//        ac.refresh();
-//        DemoBean bean = ac.getBean(DemoBean.class);
-//        System.out.println(bean);
-        System.out.println(UUID.randomUUID());
+        ac.getEnvironment().setActiveProfiles("dev");
+        ac.register(DemoConfig.class);
+        ac.refresh();
+        DemoBean bean = ac.getBean(DemoBean.class);
+        System.out.println(bean);
     }
 
 }

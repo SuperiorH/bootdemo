@@ -5,7 +5,6 @@ import com.example.demo.condition.WindowsCondition;
 import com.example.demo.condition.service.ListService;
 import com.example.demo.condition.service.impl.LinuxListService;
 import com.example.demo.condition.service.impl.WindowsListService;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;

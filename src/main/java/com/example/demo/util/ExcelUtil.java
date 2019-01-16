@@ -22,7 +22,6 @@ public class ExcelUtil {
         System.out.println("**********分割线************");
         System.out.println(isExcel2003(path1));
         System.out.println(isExcel2007(path1));
-
     }
 
 }
