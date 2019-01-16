@@ -16,7 +16,6 @@ public class MongoController {
     @RequestMapping("/save")
     public String save() {
         User u = new User();
-//        u.setId("66666");
         u.setName("ivy");
         u.setAge(23);
         u.setAddr("江苏省南通市");
