@@ -31,14 +31,15 @@ public class UserDaoImpl implements UserDao{
      */
     @Override
     public User findUserByName(String userName) {
-        Query query=new Query(Criteria.where("userName").is(userName));
+        //name为mongodb中的字段
+        Query query=new Query(Criteria.where("name").is(userName));
         User user =  mongoTemplate.findOne(query,User.class);
         return user;
     }
 
 
 
-    /**
+    /**ss
      * 更新对象
      * @param user
      */
