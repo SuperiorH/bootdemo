@@ -9,7 +9,7 @@ public class Test3 {
 //        for (int i = 1; i <= 30; i++) {
 //            System.out.println(random.nextInt(10));
 //        }
-        InetAddress addr = InetAddress.getLocalHost();//        Random random = new Random();
+        InetAddress addr = InetAddress.getLocalHost();
         String ip = addr.getHostAddress().toString();
         System.out.println(ip);
         System.out.println(Integer.MAX_VALUE);
