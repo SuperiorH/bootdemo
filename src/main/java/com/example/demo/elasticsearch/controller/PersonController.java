@@ -39,8 +39,6 @@ public class PersonController {
 
     //每页数量
     private Integer PAGESIZE=10;
-    //http://localhost:8888/getGoodsList?query=商品
-    //http://localhost:8888/getGoodsList?query=商品&pageNumber=1
     //根据关键字"商品"去查询列表，name或者description包含的都查询
 //    @GetMapping("getGoodsList")
 //    public List<GoodsInfo> getList(Integer pageNumber,String query){

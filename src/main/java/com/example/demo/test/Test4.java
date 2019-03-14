@@ -1,33 +1,34 @@
 package com.example.demo.test;
 
-import java.util.Random;
+import org.springframework.context.annotation.Configuration;
 
+import java.util.concurrent.*;
 
+@Configuration
 public class Test4 {
 
     public static void main(String[] args) {
 
+        ExecutorService es = new ThreadPoolExecutor(5, 5, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(),
+                (e) -> {
+                    Thread thread = new Thread(e);
+                    System.out.println("我是线程" + e);
+                    return thread;
+                }
+        );
 
-    }
-
-    private static int getValue() {
-        int result;
-        Random ran = new Random();
-        while (1 == 1) {
-            int i = ran.nextInt(2);
-            int j = ran.nextInt(2);
-            if (i == 0 && j == 1) {
-                result = 0;
-                break;
-            } else if (i == 1 && j == 0) {
-                result = 1;
-                break;
-            } else {
-                continue;
-
-            }
+        for (int i = 1; i <= 10; i++) {
+            es.submit(() -> {
+                try {
+                    Thread.sleep(1000L);
+                    System.out.println(Thread.currentThread().getName() + "正在执行！");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
         }
-        return result;
+
     }
+
 
 }
