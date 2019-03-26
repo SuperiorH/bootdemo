@@ -60,6 +60,16 @@ public class Person implements Cloneable{
         }
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", friends=" + friends +
+                '}';
+    }
+
     public static void main(String[] args) {
         Person person1 = new Person();
         List<String> friends = new ArrayList<>();
