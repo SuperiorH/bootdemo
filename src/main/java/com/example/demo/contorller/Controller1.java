@@ -39,15 +39,10 @@ public class Controller1 {
     @ResponseBody
     public Map<String, String> m4(HttpServletRequest request) {
         Map<String, String> map = new HashMap<>();
-//        String uri = request.getRequestURI();
-//        String url = request.getRequestURL().toString();
-//        map.put("uri", uri);
-//        map.put("url", url);
         Cookie[] cookies = request.getCookies();
         Arrays.stream(cookies).forEach((e) ->
             map.put(e.getName(), e.getValue())
         );
-        map.put("liuwei","dog");
         return map;
     }
 

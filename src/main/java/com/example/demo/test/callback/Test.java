@@ -53,19 +53,5 @@ public class Test {
         System.out.println(Arrays.toString(students));
     }
 
-    private Map map;
-
-    public Object get(Object key) {
-        Object val = null;
-        if ((val = map.get(key)) == null) {
-            // 当map取值为null时再加锁判断
-            synchronized (map) {
-                if ((val = map.get(key)) == null) {
-                    // set some value to map...
-                }
-            }
-        }
-        return map.get(key);
-    }
 
 }

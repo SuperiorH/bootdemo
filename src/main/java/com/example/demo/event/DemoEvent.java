@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationEvent;
 
 public class DemoEvent extends ApplicationEvent {
     private String msg;
+
     /**
      * Create a new ApplicationEvent.
      *

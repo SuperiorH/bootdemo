@@ -4,8 +4,10 @@ package com.example.demo.http;
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.elasticsearch.entity.Person;
 
+import java.io.IOException;
+
 public class HttpClientTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        String url = "http://www.baidu.com";
 //        HttpClient httpClient = new DefaultHttpClient();
 //        HttpGet httpGet = new HttpGet(url);
