@@ -22,7 +22,7 @@ public class ExcelImportImpl implements ExcelImport {
     @Override
     public List<Student> importData(String file) {
         Workbook wb;
-        List<Student> list = new ArrayList();
+        List<Student> list = new ArrayList<>();
         try {
             if (ExcelUtil.isExcel2007(file)) {
                 wb = new XSSFWorkbook(new FileInputStream(file));

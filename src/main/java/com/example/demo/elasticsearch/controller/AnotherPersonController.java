@@ -5,6 +5,7 @@ import com.example.demo.elasticsearch.entity.Person;
 import com.example.demo.elasticsearch.entity.Product;
 import com.example.demo.elasticsearch.query.QueryTemplate;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.AbstractAggregationBuilder;
@@ -57,7 +58,7 @@ public class AnotherPersonController {
         SearchQuery query = nativeSearchQueryBuilder.build();
         //执行sql,此时容器中的sql1为
         //select SUM(num) from zoo
-        Aggregations aggregations = elasticsearchTemplate.query(query, (e) -> e.getAggregations());
+        Aggregations aggregations = elasticsearchTemplate.query(query, SearchResponse::getAggregations);
         //将aggregations转换成map集合
         Map<String, Aggregation> aggregationMap = aggregations.asMap();
         //得到聚合的值，参数是自己定义的别名
@@ -72,8 +73,7 @@ public class AnotherPersonController {
         if (!user.equals("all")) {
             queryBuilder.must(matchQuery("user", user));
         }
-        List<Person> list = elasticsearchTemplate.queryForList(QueryTemplate.withQuery(queryBuilder), Person.class);
-        return list;
+        return elasticsearchTemplate.queryForList(QueryTemplate.withQuery(queryBuilder), Person.class);
     }
 
     @GetMapping("/search2/{name}")
@@ -83,8 +83,7 @@ public class AnotherPersonController {
             queryBuilder.must(termQuery("name", name));
         }
         SortBuilder sortBuilder = SortBuilders.fieldSort("price").order(SortOrder.ASC);  //排序方式
-        List<Product> list = elasticsearchTemplate.queryForList(QueryTemplate.withQueryAndSort(queryBuilder, sortBuilder), Product.class);
-        return list;
+        return elasticsearchTemplate.queryForList(QueryTemplate.withQueryAndSort(queryBuilder, sortBuilder), Product.class);
     }
 
     @GetMapping("/search3/{name}")
@@ -118,7 +117,7 @@ public class AnotherPersonController {
         AbstractAggregationBuilder sb = AggregationBuilders.sum("my_sum").field("price");
         tb.subAggregation(sb);
 
-        Aggregations aggregations = elasticsearchTemplate.query(QueryTemplate.withQueryAndAddAggregation(queryBuilder, tb), (e) -> e.getAggregations());
+        Aggregations aggregations = elasticsearchTemplate.query(QueryTemplate.withQueryAndAddAggregation(queryBuilder, tb), SearchResponse::getAggregations);
         log.info("计数:{}" + aggregations.get("my_terms"));
         Terms term = aggregations.get("my_terms");
         Map<String, Object> map = new HashMap<>();
@@ -127,7 +126,7 @@ public class AnotherPersonController {
                         long count = e.getDocCount();
                         Object key = e.getKey();
                         //得到所有子聚合
-                        Map subaggmap = e.getAggregations().asMap();
+                        Map<String, Aggregation> subaggmap = e.getAggregations().asMap();
                         //sum值获取方法
                         double amount = ((InternalSum) subaggmap.get("my_sum")).getValue();
                         log.info("count:{},key:{},amount:{}", count, key, amount);

@@ -1,37 +1,34 @@
 package com.example.demo.test;
 
-import java.io.*;
+import org.springframework.context.annotation.Configuration;
 
-/**
- * transient 关键词测试
- */
-public class Test1 implements Serializable {
+import java.util.concurrent.*;
 
-    private transient String name;
-    private int age;
+@Configuration
+public class Test1 {
 
-    public Test1(String name, int age) {
-        this.name = name;
-        this.age = age;
+    public static void main(String[] args) {
+
+        ExecutorService es = new ThreadPoolExecutor(10, 10, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(),
+                (e) -> {
+                    Thread thread = new Thread(e);
+                    System.out.println("我是线程" + e);
+                    return thread;
+                }
+        );
+
+        for (int i = 1; i <= 10; i++) {
+            es.submit(() -> {
+                try {
+                    Thread.sleep(1000L);
+                    System.out.println(Thread.currentThread().getName() + "正在执行！");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
     }
 
-    @Override
-    public String toString() {
-        return "Test1{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
-
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        String path = "D:" + File.separator + "1.txt";
-        Test1 t = new Test1("Joe", 18);
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
-        oos.writeObject(t);
-        System.out.println("=======这是分割线======");
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
-        Test1 tt = (Test1) ois.readObject();
-        System.out.println(tt);
-    }
 
 }

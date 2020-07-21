@@ -18,7 +18,7 @@ public class Student implements MyCompare {
     public int compare(MyCompare myCompare) {
         Student s = (Student) myCompare;
         int diff = this.age - s.age;
-        return diff > 0 ? 1 : ((diff == 0) ? 0 : -1);
+        return Integer.compare(diff, 0);
     }
 
 }
